@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-body">
+    <h5>Create New Student</h5>
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            <div class="br-message warning" role="alert">
+                <div class="icon"><i class="fas fa-exclamation-triangle fa-lg" aria-hidden="true"></i></div>
+                <div class="content">
+                    <span class="message-title">Atenção.</span>
+                    <span class="message-body">
+                        {{ form.errors }}
+                    </span>
+                </div>
+                <div class="close">
+                    <button class="br-button circle small" type="button" aria-label="Fechar"><i class="fas fa-times" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="br-input">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+
+        <div class="br-input">
+            {{ form.code.label_tag }}
+            {{ form.code }}
+        </div>
+
+        <div class="br-input">
+            <label for="{{ form.email.auto_id }}">{{ form.email.label }}</label>
+            {{ form.email }}
+        </div>
+
+        <div class="br-datetimepicker" data-mode="single" data-type="text">
+            <div class="br-input has-icon">
+                {{ form.birth_date.label_tag }}
+                {{ form.birth_date }}
+                <button class="br-button circle small" type="button" aria-label="Abrir Timepicker" data-toggle="data-toggle" id="simples-input-btn">
+                    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div
+
+        <a type="button" class="btn btn-danger" href="{%url 'student-list' %}">Cancel</a>
+        <button type="submit" class="btn btn-success">Create</button>
+    </form>
+</div>
+{% endblock %}

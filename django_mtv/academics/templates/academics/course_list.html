@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Course List{% endblock %}
+
+{% block breadcrumb %}
+    {% include "components/breadcrumb_item.html" with href="javascript:void(0)" text="Item 1" only %}
+    {% include "components/breadcrumb_item.html" with href="javascript:void(0)" text="Item 2" only %}
+    {% include "components/breadcrumb_item.html" with active="active" text="Atual" only %}
+{% endblock %}
+
+{% block content %}
+<h4>Course List</h4>
+
+<form method="GET" action="{% url 'course-list' %}">
+    {{ form.as_p }}
+    <input type="submit" value="Submit" class="br-button primary" />
+</form>
+
+<div class="br-table" data-search="data-search" data-selection="data-selection" data-collapse="data-collapse" data-random="data-random">
+    <div class="table-header">
+    </div>
+    <table>
+      <caption>Título da Tabela</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scolpe="col">Subjects</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in object_list %}
+        <tr>
+            <td>{{ course.name }}</td>
+            <td>
+                {% for subject in course.subjects.all %}
+                    {{ subject }} /
+                {% endfor %}
+            </td>
+            <td><a type="button" class="btn btn-primary" href="{%url 'course-detail' course.id %}">Detail</a>
+                <a type="button" class="btn btn-warning" href="{%url 'course-update' course.id %}">Update</a>
+                <a type="button" class="btn btn-danger" href="{%url 'course-delete' course.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+  </div>
+<a type="button" class="btn btn-success" href="{%url 'course-create' %}">Create</a>
+{% endblock %}

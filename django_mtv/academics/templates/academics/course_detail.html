@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-body">
+    <h4>Course Detail</h4>
+    <p>Nome: {{ course.name }}</p>
+    <a type="button" class="btn btn-success" href="{%url 'course-list' %}">Back To List</a>
+</div>
+{% endblock %}

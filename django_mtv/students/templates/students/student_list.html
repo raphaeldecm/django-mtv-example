@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Student List{% endblock %}
+
+{% block breadcrumb %}
+    {% include "components/breadcrumb_item.html" with href="javascript:void(0)" text="Item 1" only %}
+    {% include "components/breadcrumb_item.html" with href="javascript:void(0)" text="Item 2" only %}
+    {% include "components/breadcrumb_item.html" with active="active" text="Atual" only %}
+{% endblock %}
+
+{% block content %}
+<h4>Student List</h4>
+
+<form method="GET" action="{% url 'course-list' %}">
+    {{ form.as_p }}
+    <input type="submit" value="Submit" class="br-button primary" />
+</form>
+
+<div class="br-table" data-search="data-search" data-selection="data-selection" data-collapse="data-collapse" data-random="data-random">
+    <div class="table-header">
+    </div>
+    <table>
+      <caption>Título da Tabela</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in object_list %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+<a type="button" class="btn btn-success" href="{%url 'student-create' %}">Create</a>
+{% endblock %}

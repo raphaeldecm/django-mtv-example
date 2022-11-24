@@ -1,0 +1,7 @@
+<li class="crumb" data-active={{ active|default:"inactive" }}><i class="icon fas fa-chevron-right"></i>
+    {% if active == "active" %}
+        <span>{{ text }}</span>
+    {% else %}
+        <a href={{ href }}>{{ text }}</a>
+    {% endif %}
+</li>
